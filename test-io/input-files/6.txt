@@ -1,0 +1,11 @@
+10
+insert "Alice" 10100101
+insert "Bob" 20200202
+insert "Charlie" 30300303
+insert "Daisy" 40400404
+insert "Eve" 50500505
+insert "Frank" 60600606
+printInorder
+printPreorder
+printPostorder
+search "Charlie"

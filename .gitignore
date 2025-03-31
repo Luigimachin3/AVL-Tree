@@ -1,0 +1,11 @@
+# Ignore these
+
+cmake-build-debug/
+*.o
+*.exe
+*.out
+*.obj
+*.log
+*.tmp
+
+test_io

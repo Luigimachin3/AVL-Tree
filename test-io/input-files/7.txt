@@ -1,0 +1,9 @@
+8
+insert "Jack" 10010010
+insert "Karen" 11011011
+insert "Liam" 12012012
+printPostorder
+insert "Mia" 13013013
+printInorder
+printPreorder
+remove 13013013
