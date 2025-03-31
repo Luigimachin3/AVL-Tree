@@ -35,18 +35,23 @@ int main() {
 
     //Collect command count
     unsigned int numOfCommands;
+    cout << "Enter the number of commands to execute: ";
     cin >> numOfCommands;
 
     while (numOfCommands--) {
 
         string cmd;
+        cout << "Enter insert, remove, or search"
         cin >> cmd;
 
         //Insert Command to store "gatorName" and "gatorId"
         if (cmd == "insert") {
             string gatorName, gatorId;
+            cout << "Enter gator name using quotes: "
+            cin.ignore();
             getline(cin, gatorName, '\"');
             getline(cin, gatorName, '\"');
+            cout << "Enter gator ID: ";
             cin >> gatorId;
 
             if (!isAlphaOrSpace(gatorName) || !checkId(gatorId) || cin.get() != '\n') {
@@ -59,6 +64,7 @@ int main() {
             //Remove Command to removeAccount node
         else if (cmd == "remove") {
             string gatorId;
+            cout << "Enter gator ID: ";
             cin >> gatorId;
             // Handle invalid gatorId removeAccount
             if (!checkId(gatorId) || cin.get() != '\n') {
@@ -72,6 +78,7 @@ int main() {
             // Search Command to find "gatorName" or "gatorId"
         else if (cmd == "search") {
             string input;
+            cout << "Find gator name or gator Id" ;
             cin >> input;
 
             // Handle Name searchGatorId
@@ -80,6 +87,7 @@ int main() {
                     input = input.substr(1, input.length() - 2);
                 } else {
                     string remainderOfName;
+                    cin.ignore();
                     getline(cin, remainderOfName, '\"');
                     input += remainderOfName;
                 }
