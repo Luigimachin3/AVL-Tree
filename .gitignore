@@ -1,11 +1,14 @@
-# Ignore these
-
+# Ignore
+.idea/
+.vs/
+out/
 cmake-build-debug/
-*.o
 *.exe
-*.out
+*.o
 *.obj
 *.log
 *.tmp
-
-test_io
+*.ninja
+*.cmake
+*.vsidx
+*.json
