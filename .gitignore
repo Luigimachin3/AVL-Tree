@@ -12,3 +12,5 @@ cmake-build-debug/
 *.cmake
 *.vsidx
 *.json
+test_io
+test-io/
