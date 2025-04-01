@@ -29,134 +29,115 @@ bool checkId(string inputId) {
     return true;
 }
 
+void mainMenu() {
+    cout << "\n====== LIST OF COMMANDS ======\n";
+    cout << "1. Insert (\"Name\" + ID)\n";
+    cout << "2. Remove by ID\n";
+    cout << "3. Search by ID\n";
+    cout << "4. Search by Name\n";
+    cout << "5. Print Inorder\n";
+    cout << "6. Print Preorder\n";
+    cout << "7. Print Postorder\n";
+    cout << "8. Print Level Count\n";
+    cout << "9. Remove by Inorder Position\n";
+    cout << "0. Exit\n";
+    cout << "=============================\n" << endl;
+}
+
 int main() {
-    //Create Tree
     AVLTreeGator avlTree;
+    string input;
 
-    //Collect command count
-    unsigned int numOfCommands;
-    cout << "Enter the number of commands to execute: ";
-    cin >> numOfCommands;
+    cout << "Welcome to the AVL Gator Tree!" << endl;
+    mainMenu();
 
-    while (numOfCommands--) {
+    while (true) {
+        cout << "\nEnter command (1-9, 0 to exit, or type 'm' to see the menu): ";
+        getline(cin, input);
 
-        string cmd;
-        cout << "Enter insert, remove, or search"
-        cin >> cmd;
-
-        //Insert Command to store "gatorName" and "gatorId"
-        if (cmd == "insert") {
-            string gatorName, gatorId;
-            cout << "Enter gator name using quotes: "
-            cin.ignore();
-            getline(cin, gatorName, '\"');
-            getline(cin, gatorName, '\"');
-            cout << "Enter gator ID: ";
-            cin >> gatorId;
-
-            if (!isAlphaOrSpace(gatorName) || !checkId(gatorId) || cin.get() != '\n') {
-                cout << "unsuccessful" << endl;
-            } else {
-                avlTree.insert(gatorName, stol(gatorId));
-            }
+        if (input == "0") {
+            cout << "Goodbye" << endl;
+            break;
         }
 
-            //Remove Command to removeAccount node
-        else if (cmd == "remove") {
-            string gatorId;
-            cout << "Enter gator ID: ";
-            cin >> gatorId;
-            // Handle invalid gatorId removeAccount
-            if (!checkId(gatorId) || cin.get() != '\n') {
-                cout << "unsuccessful" << endl;
-            } else {
-                avlTree.remove(stol(gatorId));
-            }
-
+        if (input == "m" || input == "M") {
+            mainMenu();
+            continue;
         }
 
-            // Search Command to find "gatorName" or "gatorId"
-        else if (cmd == "search") {
-            string input;
-            cout << "Find gator name or gator Id" ;
-            cin >> input;
+        int choice;
+        try {
+            choice = stoi(input);
+        } catch (...) {
+            cout << "Invalid option. Type 'm' to see the menu again." << endl;
+            continue;
+        }
 
-            // Handle Name searchGatorId
-            if (input[0] == '\"') {
-                if (input[input.length() - 1] == '\"') {
-                    input = input.substr(1, input.length() - 2);
-                } else {
-                    string remainderOfName;
-                    cin.ignore();
-                    getline(cin, remainderOfName, '\"');
-                    input += remainderOfName;
-                }
-                if (cin.peek() != '\n' && cin.peek() != EOF) {
+        switch (choice) {
+            case 1: {
+                cout << "Enter name in quotes and 8-digit-ID (e.g., \"Bob\" 12345678): ";
+                string gatorName, gatorId;
+                getline(cin, gatorName, '"');
+                getline(cin, gatorName, '"');
+                cin >> gatorId;
+                cin.ignore();
+                if (!isAlphaOrSpace(gatorName) || !checkId(gatorId)) {
                     cout << "unsuccessful" << endl;
                 } else {
-                    avlTree.searchName(input);
+                    avlTree.insert(gatorName, stol(gatorId));
                 }
+                break;
             }
-                // Handle ID searchGatorId
-            else if (checkId(input)) {
-                avlTree.searchId(stol(input));
-            }
-                // Handle invalid searchGatorId
-            else {
-                cout << "unsuccessful" << endl;
-            }
-        }
-
-            //Print Command to print tree Inorder
-        else if (cmd == "printInorder") {
-            if (cin.peek() != '\n' && cin.peek() != EOF) {
-                cout << "unsuccessful" << endl;
-            } else {
+            case 2: {
+                cout << "Enter 8-digit ID to remove: ";
+                string id;
+                cin >> id;
                 cin.ignore();
+                if (!checkId(id)) cout << "unsuccessful" << endl;
+                else avlTree.remove(stol(id));
+                break;
+            }
+            case 3: {
+                cout << "Enter 8-digit ID to search: ";
+                string id;
+                cin >> id;
+                cin.ignore();
+                if (!checkId(id)) cout << "unsuccessful" << endl;
+                else avlTree.searchId(stol(id));
+                break;
+            }
+            case 4: {
+                cout << "Enter name in quotes to search: ";
+                string name;
+                getline(cin, name, '"');
+                getline(cin, name, '"');
+                if (!isAlphaOrSpace(name)) cout << "unsuccessful" << endl;
+                else avlTree.searchName(name);
+                cin.ignore();
+                break;
+            }
+            case 5:
                 avlTree.printInorder();
-            }
-        }
-
-            //Print Command to print tree Preorder
-        else if (cmd == "printPreorder") {
-            if (cin.peek() != '\n' && cin.peek() != EOF) {
-                cout << "unsuccessful" << endl;
-            } else {
-                cin.ignore();
+                break;
+            case 6:
                 avlTree.printPreorder();
-            }
-
-            //Print Command to print tree Postorder
-        } else if (cmd == "printPostorder") {
-            if (cin.peek() != '\n' && cin.peek() != EOF) {
-                cout << "unsuccessful" << endl;
-            } else {
-                cin.ignore();
+                break;
+            case 7:
                 avlTree.printPostorder();
-            }
-
-            //Print Command to print tree LevelCount
-        } else if (cmd == "printLevelCount") {
-            if (cin.peek() != '\n' && cin.peek() != EOF) {
-                cout << "unsuccessful" << endl;
-            } else {
-                cin.ignore();
+                break;
+            case 8:
                 avlTree.printLevelCount();
-            }
-
-            //Remove Command to removeAccount node
-        } else if (cmd == "removeInorder") {
-            unsigned int count;
-            cin >> count;
-
-            if (cin.peek() != '\n' && cin.peek() != EOF) {
-                cout << "unsuccessful" << endl;
-            } else {
+                break;
+            case 9: {
+                cout << "Enter position to remove: ";
+                int pos;
+                cin >> pos;
                 cin.ignore();
-                avlTree.removeInorder(count);
+                avlTree.removeInorder(pos);
+                break;
             }
-        } else {
-            cout << "unsuccessful" << endl;
+            default:
+                cout << "Invalid option. Type 'm' to see the menu again." << endl;
         }
     }
     return 0;
